@@ -3,94 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>瓦罗兰特组队预约</title>
+    <title>无畏契约组队预约</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
         }
         body {
-            background: #111827;
-            color: #fff;
-            max-width: 620px;
-            margin: 30px auto;
-            padding: 20px;
+            background-color: #fff5f8;
+            color: #442c38;
+            padding: 30px 16px;
         }
         .container {
-            background: #1f2937;
-            padding: 28px;
-            border-radius: 16px;
-            box-shadow: 0 0 20px #00000044;
+            max-width: 520px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 32px 26px;
+            border-radius: 22px;
+            box-shadow: 0 4px 14px #ffd6e377;
+            border: 1px solid #ffd6e3;
         }
         h1 {
             text-align: center;
-            color: #ff4655;
-            margin-top:0;
+            color: #f278a1;
+            margin-bottom: 28px;
+            font-size: 24px;
+            font-weight: 600;
         }
         .form-item {
-            margin-bottom:18px;
+            margin-bottom: 18px;
         }
         label {
-            display:block;
-            margin-bottom:6px;
-            font-weight:500;
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            color: #6b3f50;
         }
-        .required::after {
-            content: " *";
-            color:#ff4655;
+        .req {
+            color: #f278a1;
         }
         input, select, textarea {
-            width:100%;
-            padding:12px;
-            border-radius:8px;
-            border:none;
-            font-size:16px;
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 14px;
+            border: 1px solid #ffd6e3;
+            background: #fff9fb;
+            color: #442c38;
+            font-size: 15px;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #f278a1;
+            box-shadow: 0 0 0 3px #ffd6e370;
         }
         textarea {
-            min-height:100px;
             resize: vertical;
+            min-height: 95px;
         }
         button {
-            width:100%;
-            padding:14px;
-            background:#ff4655;
-            color:white;
-            border:none;
-            border-radius:10px;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
+            width: 100%;
+            padding: 14px;
+            background-color: #f278a1;
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
         }
         button:hover {
-            background:#e03947;
+            background-color: #e8648f;
         }
-        .result-box {
-            margin-top:24px;
-            padding:20px;
-            background:#111827;
-            border-radius:12px;
-            display:none;
+        #result {
+            margin-top: 22px;
+            padding: 18px;
+            border: 1px solid #b9e6c8;
+            border-radius: 16px;
+            background: #f6fff9;
+            display: none;
         }
-        .result-box h3 {
-            color:#4ade80;
+        #result h3 {
+            color: #349c5c;
+            margin-bottom: 10px;
+            font-size: 17px;
+        }
+        #resText {
+            white-space: pre-line;
+            line-height: 1.7;
+            font-size: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>瓦罗兰特组队预约</h1>
-        <!-- 表单提交自动发送到你的邮箱 dashuaigedeemail@gmail.com -->
-        <form action="https://formsubmit.co/dashuaigedeemail@gmail.com" method="POST" id="valForm">
-            <input type="hidden" name="_subject" value="【瓦罗兰特新预约】收到组队预约！">
+        <h1>无畏契约 组队预约 💖</h1>
+        <form action="https://formsubmit.co/aa19b1f1b214426062d5965861e86a91" method="POST" id="bookForm">
+            <input type="hidden" name="_subject" value="新的瓦罗兰特组队预约！">
             <input type="hidden" name="_captcha" value="false">
 
             <div class="form-item">
-                <label class="required">游戏ID（带#标签）</label>
-                <input type="text" name="gameid" required placeholder="例：Player#1234">
+                <label>游戏ID <span class="req">*</span></label>
+                <input type="text" name="游戏ID" required>
             </div>
             <div class="form-item">
-                <label class="required">段位</label>
-                <select name="rank" required>
+                <label>段位 <span class="req">*</span></label>
+                <select name="段位" required>
                     <option value="">请选择段位</option>
                     <option>黑铁</option>
                     <option>青铜</option>
@@ -98,71 +119,66 @@
                     <option>黄金</option>
                     <option>铂金</option>
                     <option>钻石</option>
-                    <option>超凡</option>
+                    <option>超凡入圣</option>
                     <option>神话</option>
                     <option>辐能战魂</option>
                 </select>
             </div>
             <div class="form-item">
-                <label class="required">预约日期</label>
-                <input type="date" name="date" required>
+                <label>预约日期 <span class="req">*</span></label>
+                <input type="date" name="预约日期" required>
             </div>
             <div class="form-item">
-                <label class="required">预约时间</label>
-                <input type="time" name="time" required>
+                <label>预约时间段 <span class="req">*</span></label>
+                <select name="时间段" required>
+                    <option value="">请选择时间</option>
+                    <option>下午14:00–16:00</option>
+                    <option>傍晚17:00–19:00</option>
+                    <option>晚上20:00–22:00</option>
+                    <option>深夜22:00–00:00</option>
+                </select>
             </div>
             <div class="form-item">
-                <label class="required">游戏模式</label>
-                <select name="mode" required>
-                    <option value="">请选择模式</option>
+                <label>游戏模式 <span class="req">*</span></label>
+                <select name="游戏模式" required>
+                    <option value="">选择模式</option>
                     <option>排位赛</option>
                     <option>普通匹配</option>
                     <option>极速模式</option>
-                    <option>死斗</option>
-                    <option>其他</option>
                 </select>
             </div>
             <div class="form-item">
                 <label>备注</label>
-                <textarea name="note" placeholder="想补充的话、位置要求等，选填"></textarea>
+                <textarea name="备注" placeholder="想玩什么英雄、几排等，选填~"></textarea>
             </div>
+
             <button type="submit">提交预约</button>
         </form>
 
-        <!-- 提交后展示预约信息 -->
-        <div class="result-box" id="resultBox">
-            <h3>✅ 预约提交成功！</h3>
-            <div id="resultText"></div>
+        <div id="result">
+            <h3>✅ 预约提交成功！信息如下</h3>
+            <p id="resText"></p >
         </div>
     </div>
 
-<script>
-    const form = document.getElementById("valForm");
-    const resultBox = document.getElementById("resultBox");
-    const resultText = document.getElementById("resultText");
+    <script>
+        const form = document.getElementById('bookForm');
+        const resultBox = document.getElementById('result');
+        const resultText = document.getElementById('resText');
 
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        // 读取表单数据
-        const fd = new FormData(form);
-        const data = Object.fromEntries(fd.entries());
-        // 页面展示预约信息
-        resultText.innerHTML = `
-            <p>游戏ID：${data.gameid}</p >
-            <p>段位：${data.rank}</p >
-            <p>预约日期：${data.date}</p >
-            <p>预约时间：${data.time}</p >
-            <p>游戏模式：${data.mode}</p >
-            <p>备注：${data.note || "无"}</p >
-            <p style="margin-top:12px;color:#fbbf24;">📩 这条预约信息已经发送到你的邮箱 dashuaigedeemail@gmail.com</p >
-        `
-        resultBox.style.display = "block";
-        // 继续发送邮件请求
-        fetch(form.action, {
-            method:"POST",
-            body: fd
-        }).then(()=>{});
-    })
-</script>
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            const fd = new FormData(form);
+            let info = "";
+            for(let [k,v] of fd.entries()){
+                info += k + "：" + v + "\n";
+            }
+            resultText.innerText = info;
+            resultBox.style.display = "block";
+            setTimeout(()=>{
+                form.submit();
+            }, 800);
+        })
+    </script>
 </body>
 </html>
