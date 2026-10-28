@@ -1,14 +1,168 @@
-index.html
-朋友
-  ↓
-打开你的预约网址
-  ↓
-填写游戏ID / 段位 / 日期 / 时间 / 模式 / 备注
-  ↓
-提交预约
-  ↓
-网页显示「预约成功」
-  ↓
-你的邮箱
-dashuaigedeemail@gmail.com
-收到预约通知
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瓦罗兰特组队预约</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, sans-serif;
+        }
+        body {
+            background: #111827;
+            color: #fff;
+            max-width: 620px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+        .container {
+            background: #1f2937;
+            padding: 28px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px #00000044;
+        }
+        h1 {
+            text-align: center;
+            color: #ff4655;
+            margin-top:0;
+        }
+        .form-item {
+            margin-bottom:18px;
+        }
+        label {
+            display:block;
+            margin-bottom:6px;
+            font-weight:500;
+        }
+        .required::after {
+            content: " *";
+            color:#ff4655;
+        }
+        input, select, textarea {
+            width:100%;
+            padding:12px;
+            border-radius:8px;
+            border:none;
+            font-size:16px;
+        }
+        textarea {
+            min-height:100px;
+            resize: vertical;
+        }
+        button {
+            width:100%;
+            padding:14px;
+            background:#ff4655;
+            color:white;
+            border:none;
+            border-radius:10px;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        button:hover {
+            background:#e03947;
+        }
+        .result-box {
+            margin-top:24px;
+            padding:20px;
+            background:#111827;
+            border-radius:12px;
+            display:none;
+        }
+        .result-box h3 {
+            color:#4ade80;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>瓦罗兰特组队预约</h1>
+        <!-- 表单提交自动发送到你的邮箱 dashuaigedeemail@gmail.com -->
+        <form action="https://formsubmit.co/dashuaigedeemail@gmail.com" method="POST" id="valForm">
+            <input type="hidden" name="_subject" value="【瓦罗兰特新预约】收到组队预约！">
+            <input type="hidden" name="_captcha" value="false">
+
+            <div class="form-item">
+                <label class="required">游戏ID（带#标签）</label>
+                <input type="text" name="gameid" required placeholder="例：Player#1234">
+            </div>
+            <div class="form-item">
+                <label class="required">段位</label>
+                <select name="rank" required>
+                    <option value="">请选择段位</option>
+                    <option>黑铁</option>
+                    <option>青铜</option>
+                    <option>白银</option>
+                    <option>黄金</option>
+                    <option>铂金</option>
+                    <option>钻石</option>
+                    <option>超凡</option>
+                    <option>神话</option>
+                    <option>辐能战魂</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label class="required">预约日期</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="form-item">
+                <label class="required">预约时间</label>
+                <input type="time" name="time" required>
+            </div>
+            <div class="form-item">
+                <label class="required">游戏模式</label>
+                <select name="mode" required>
+                    <option value="">请选择模式</option>
+                    <option>排位赛</option>
+                    <option>普通匹配</option>
+                    <option>极速模式</option>
+                    <option>死斗</option>
+                    <option>其他</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>备注</label>
+                <textarea name="note" placeholder="想补充的话、位置要求等，选填"></textarea>
+            </div>
+            <button type="submit">提交预约</button>
+        </form>
+
+        <!-- 提交后展示预约信息 -->
+        <div class="result-box" id="resultBox">
+            <h3>✅ 预约提交成功！</h3>
+            <div id="resultText"></div>
+        </div>
+    </div>
+
+<script>
+    const form = document.getElementById("valForm");
+    const resultBox = document.getElementById("resultBox");
+    const resultText = document.getElementById("resultText");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        // 读取表单数据
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        // 页面展示预约信息
+        resultText.innerHTML = `
+            <p>游戏ID：${data.gameid}</p >
+            <p>段位：${data.rank}</p >
+            <p>预约日期：${data.date}</p >
+            <p>预约时间：${data.time}</p >
+            <p>游戏模式：${data.mode}</p >
+            <p>备注：${data.note || "无"}</p >
+            <p style="margin-top:12px;color:#fbbf24;">📩 这条预约信息已经发送到你的邮箱 dashuaigedeemail@gmail.com</p >
+        `
+        resultBox.style.display = "block";
+        // 继续发送邮件请求
+        fetch(form.action, {
+            method:"POST",
+            body: fd
+        }).then(()=>{});
+    })
+</script>
+</body>
+</html>
