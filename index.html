@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>无畏契约组队预约</title>
+    <title>无畏契约小帅哥组队预约ovo</title>
     <style>
         * {
             box-sizing: border-box;
@@ -75,7 +75,11 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        button:hover {
+        button:disabled{
+            background:#f7a8c2;
+            cursor:not-allowed;
+        }
+        button:hover:not(:disabled) {
             background-color: #e8648f;
         }
         #result {
@@ -91,20 +95,21 @@
             margin-bottom: 10px;
             font-size: 17px;
         }
-        #resText {
-            white-space: pre-line;
-            line-height: 1.7;
-            font-size: 15px;
+        #error {
+            margin-top:22px;
+            padding:18px;
+            border:1px solid #ffb8b8;
+            border-radius:16px;
+            background:#fff3f3;
+            color:#c94444;
+            display:none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>预约小帅哥的瓦ovo </h1>
-        <form action="https://formsubmit.co/aa19b1f1b214426062d5965861e86a91" method="POST" id="bookForm">
-            <input type="hidden" name="_subject" value="新的瓦罗兰特组队预约！">
-            <input type="hidden" name="_captcha" value="false">
-
+        <h1>小帅哥的组队预约~</h1>
+        <form id="bookForm">
             <div class="form-item">
                 <label>游戏ID <span class="req">*</span></label>
                 <input type="text" name="游戏ID" required>
@@ -113,15 +118,11 @@
                 <label>段位 <span class="req">*</span></label>
                 <select name="段位" required>
                     <option value="">请选择段位</option>
-                    <option>黑铁</option>
-                    <option>青铜</option>
-                    <option>白银</option>
-                    <option>黄金</option>
-                    <option>铂金</option>
-                    <option>钻石</option>
-                    <option>超凡入圣</option>
+                    <option>黑铁/青铜/白银</option>
+                    <option>黄金/铂金/钻石</option>
+                    <option>超凡</option>
                     <option>神话</option>
-                    <option>辐能战魂</option>
+                    <option>辐能</option>
                 </select>
             </div>
             <div class="form-item">
@@ -139,40 +140,60 @@
                     <option>排位赛</option>
                     <option>普通匹配</option>
                     <option>极速模式</option>
-                     <option>其他</option>
+                    <option>其他</option>
                 </select>
             </div>
             <div class="form-item">
                 <label>备注</label>
-                <textarea name="备注" placeholder="想玩什么英雄、几排等，选填~"></textarea>
+                <textarea name="备注" placeholder="有什么相对小帅哥说的~"></textarea>
             </div>
 
-            <button type="submit">提交预约</button>
+            <button type="submit" id="submitBtn">提交预约</button>
         </form>
 
         <div id="result">
-            <h3>✅ 预约提交成功！信息如下</h3>
-            <p id="resText"></p >
+            <h3>✅ 预约提交成功！</h3>
+            <p>你的预约消息已经发送给主播啦，等待回复就好✨</p >
+        </div>
+        <div id="error">
+            <h3>❌ 提交失败</h3>
+            <p>网络异常，请稍后重试！</p >
         </div>
     </div>
 
     <script>
         const form = document.getElementById('bookForm');
+        const submitBtn = document.getElementById('submitBtn');
         const resultBox = document.getElementById('result');
-        const resultText = document.getElementById('resText');
+        const errorBox = document.getElementById('error');
+        const formSubmitUrl = "https://formsubmit.co/aa19b1f1b214426062d5965861e86a91";
 
-        form.addEventListener('submit', function(e){
+        form.addEventListener('submit', async function(e){
             e.preventDefault();
+            resultBox.style.display = "none";
+            errorBox.style.display = "none";
+            submitBtn.disabled = true;
+            submitBtn.innerText = "提交中...";
+
             const fd = new FormData(form);
-            let info = "";
-            for(let [k,v] of fd.entries()){
-                info += k + "：" + v + "\n";
+            fd.append("_subject", "新的瓦罗兰特组队预约！");
+
+            try{
+                const res = await fetch(formSubmitUrl, {
+                    method:"POST",
+                    body: fd
+                })
+                if(res.ok){
+                    resultBox.style.display = "block";
+                    form.reset();
+                }else{
+                    throw new Error("fail");
+                }
+            }catch(err){
+                errorBox.style.display = "block";
             }
-            resultText.innerText = info;
-            resultBox.style.display = "block";
-            setTimeout(()=>{
-                form.submit();
-            }, 800);
+            submitBtn.disabled = false;
+            submitBtn.innerText = "提交预约";
         })
     </script>
 </body>
