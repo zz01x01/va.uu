@@ -75,11 +75,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        button:disabled{
-            background:#f7a8c2;
-            cursor:not-allowed;
-        }
-        button:hover:not(:disabled) {
+        button:hover {
             background-color: #e8648f;
         }
         #result {
@@ -109,7 +105,9 @@
 <body>
     <div class="container">
         <h1>小帅哥的组队预约~</h1>
-        <form id="bookForm">
+        <!-- 重点修改：action + target="_blank"，原生表单提交，移除fetch -->
+        <form id="bookForm" action="https://formsubmit.co/aa19b1f1b214426062d5965861e86a91" method="POST" target="_blank">
+            <input type="hidden" name="_subject" value="新的瓦罗兰特组队预约！">
             <div class="form-item">
                 <label>游戏ID <span class="req">*</span></label>
                 <input type="text" name="gameid" required placeholder="例：大帅哥#66666">
@@ -153,7 +151,7 @@
 
         <div id="result">
             <h3>✅ 预约提交成功！</h3>
-            <p>你的预约消息已经发送给主播啦，等待回复就好✨</p >
+            <p>你的预约消息已经发送给主播啦~</p >
         </div>
         <div id="error">
             <h3>❌ 提交失败</h3>
@@ -163,37 +161,14 @@
 
     <script>
         const form = document.getElementById('bookForm');
-        const submitBtn = document.getElementById('submitBtn');
         const resultBox = document.getElementById('result');
-        const errorBox = document.getElementById('error');
-        const formSubmitUrl = "https://formsubmit.co/aa19b1f1b214426062d5965861e86a91";
 
-        form.addEventListener('submit', async function(e){
-            e.preventDefault();
-            resultBox.style.display = "none";
-            errorBox.style.display = "none";
-            submitBtn.disabled = true;
-            submitBtn.innerText = "提交中...";
-
-            const fd = new FormData(form);
-            fd.append("_subject", "新的瓦罗兰特组队预约！");
-
-            try{
-                const res = await fetch(formSubmitUrl, {
-                    method:"POST",
-                    body: fd
-                })
-                if(res.ok){
-                    resultBox.style.display = "block";
-                    form.reset();
-                }else{
-                    throw new Error("fail");
-                }
-            }catch(err){
-                errorBox.style.display = "block";
-            }
-            submitBtn.disabled = false;
-            submitBtn.innerText = "提交预约";
+        // 提交成功提示（延时显示，因为新开标签页）
+        form.addEventListener('submit', function(){
+            setTimeout(()=>{
+                resultBox.style.display = "block";
+                form.reset();
+            }, 600)
         })
     </script>
 </body>
