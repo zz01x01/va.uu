@@ -55,6 +55,11 @@
             outline: none;
             transition: 0.2s;
         }
+        /* 单独让date、time输入框文字靠左对齐，和别的输入框统一 */
+        input[type="date"],
+        input[type="time"] {
+            text-align: left;
+        }
         input:focus, select:focus, textarea:focus {
             border-color: #f278a1;
             box-shadow: 0 0 0 3px #ffd6e370;
@@ -105,7 +110,6 @@
 <body>
     <div class="container">
         <h1>小帅哥的组队预约~</h1>
-        <!-- 重点修改：action + target="_blank"，原生表单提交，移除fetch -->
         <form id="bookForm" action="https://formsubmit.co/aa19b1f1b214426062d5965861e86a91" method="POST" target="_blank">
             <input type="hidden" name="_subject" value="新的瓦罗兰特组队预约！">
             <div class="form-item">
@@ -163,7 +167,6 @@
         const form = document.getElementById('bookForm');
         const resultBox = document.getElementById('result');
 
-        // 提交成功提示（延时显示，因为新开标签页）
         form.addEventListener('submit', function(){
             setTimeout(()=>{
                 resultBox.style.display = "block";
